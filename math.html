@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    var max = 10
+    var num1 = Math.floor(Math.random() * (max));
+    var num2 = Math.floor(Math.random() * (max));
+    var points = 0
+    var timeLeft = 30;
+    var elem 
+    var timerId 
+    var started = false
+
+
+    function randomize() 
+    {
+        num1 = Math.floor(Math.random() * (max));
+        num2 = Math.floor(Math.random() * (max));
+
+        var operations = Math.floor(Math.random() * (3));
+        console.log("ok")
+
+        document.getElementById("maths").innerHTML = String(num1 + " + " + num2);
+    }
+
+    function checkval(val)
+    {
+ 
+        if (started == true){
+            if (num1 + num2 == parseInt(val.value)) {
+                points +=1
+            }
+            else{
+                points -= 1
+            }
+            randomize() 
+            document.getElementById("points").innerHTML = String("Points : " + points);   
+        }
+    }
+
+    function restart()
+    {
+        started = true
+        console.log("yes")
+        timeLeft = 30
+        points = 0
+        countdown();
+        timerId = setInterval(countdown, 1000);
+
+        
+    }
+
+    $(document).ready(function() {
+        elem = document.getElementById('Timer');
+        document.getElementById("maths").innerHTML = String(num1 + " + " + num2);
+        $('#randomizebtn').click(function() {
+            randomize();
+        });
+
+        var input = document.getElementById("myInput");
+        input.addEventListener("keypress", function(event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("myBtn").click();
+        }
+        });
+
+
+    })
+
+  
+
+
+    function countdown() {
+        if (started == true) {
+            if (timeLeft == 0) {
+                clearTimeout(timerId);
+                elem.innerHTML = 'Finished : Score = ' + points;
+                started = false
+                document.getElementById("points").innerHTML = "Restart a game"
+            } else {
+                elem.innerHTML = String(timeLeft + ' seconds remaining');
+                timeLeft--;
+            }
+        }
+    }
+
+</script>
+
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Math tester</title>
+        <link rel="stylesheet" href="style.css" type="text/css">
+    </head>
+
+    <body class="content">
+        <h1>MATH TESTER</h1>
+        <h2 id="maths">Ceci est un paragraphe.</h2>
+        <br/>
+        <br/>
+        <input type="number" placeholder="answer" id="myInput">
+        <br/>
+        <br/>
+
+        <button type="button" onClick="checkval(myInput)" id="myBtn" class="btn">Answer</button>
+        <br/>
+        <br/>
+        <p id="Timer">---</p>
+        <br/>
+        <br/>
+        <p id="points">Start a new game</p>
+        <br/>
+        <br/>
+        <button type="button" onClick="restart()" class="btn">Start</button>
+
+
+    </body>
+
+</html>

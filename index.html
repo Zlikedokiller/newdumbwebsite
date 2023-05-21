@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<script>
+    function myFunction(parameter) {
+        var keyword = String(parameter.value)
+        console.log(parameter)
+        console.log(keyword)
+        var value = String('https://www.google.com/search?q=' + keyword)
+        console.log(value)
+        window.open(value);
+    }
+</script>
+
+
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Complete Randomness</title>
+        <link rel="stylesheet" href="style.css" type="text/css">
+
+    </head>
+
+
+    <body class="bbg">
+        <div class="header">
+            <nav>
+                <img src="logo.png", width="25%">
+                <ul class="navlinks">
+                    <p>© 2023-2024 Incredible Website Inc.</p>
+                </ul>
+            </nav>
+
+
+
+        </div> 
+        <div class="content">
+
+            <br/>
+            <br/>
+
+            <h1>Find Anything Online</h1>
+
+            <form>
+                <input type="text" placeholder="Enter Keyword" name="val">
+                <button type="submit" onClick="myFunction(val)">Search</button>
+            </form>
+
+            <br/>
+            <br/>
+
+            <hr/>
+
+            <br/>
+            <br/>
+
+            <h1>Other Stuff</h1>
+            <div class="navlinks">
+                <li class="btnsq"><a href="math.html" class="nodecor"><img src="icon.png" width="50%" height="50%"/><br/><br/>Math tester</a></li>
+                <br/>
+                <br/>
+                <li class="btnsq"><a href="roulette.html" class="nodecor"><img src="icon2.png" width="50%" height="50%"/><br/><br/>Roulette</a></li>
+                <br/>
+                <br/>
+                <li class="btnsq"><a href="https://zlikedokiller.itch.io/nemesisdimensions" class="nodecor"><img src="icon3.png" width="50%" height="50%"/><br/><br/>NemesisDimensions</a></li>
+                
+            </div>
+        </div>
+
+    </body>
+
+</html>

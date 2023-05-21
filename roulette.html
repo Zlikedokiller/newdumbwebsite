@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    var data = []
+
+
+    function addinputvalue(val) {
+        var inputvalue = String(val.value)
+        data.push(inputvalue)
+        console.log(inputvalue)
+
+        var str = ""
+
+        for (var i = 0; i < data.length; i++) {
+            str += data[i] + "<br/>"
+        }
+
+        document.getElementById("elemts").innerHTML = str
+    }
+
+    
+    function importFile() {
+      var fileInput = document.getElementById("myFile");
+      var file = fileInput.files[0];
+      
+      // Faites ce que vous voulez avec le fichier ici, par exemple, l'envoyer à un serveur via une requête AJAX
+      
+      console.log("Nom du fichier : " + file.name);
+      console.log("Taille du fichier : " + file.size + " octets");
+      console.log("Type du fichier : " + file.type);
+
+      var reader = new FileReader();
+      reader.onload = function(event) {
+        var jsonContent = event.target.result;
+        var jsonData = JSON.parse(jsonContent);
+
+        data = [];
+
+        while (jsonData.length > 0) {
+            data.push(jsonData[0])
+            jsonData.shift();
+            console.log(data)
+        }
+
+        var str = ""
+
+        for (var i = 0; i < data.length; i++) {
+            str += data[i] + "<br/>"
+        }
+
+        document.getElementById("elemts").innerHTML = str
+      };
+
+      reader.readAsText(file);
+    }
+
+
+    $(document).ready(function() {
+
+        function enregistrerDansJSON() {
+
+            var donneesJSON = JSON.stringify(data);
+
+            var lienTelechargement = document.createElement('a');
+            lienTelechargement.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(donneesJSON);
+            lienTelechargement.download = 'donnees.json';
+
+            lienTelechargement.click();
+        }
+
+        function randSelect() {
+            var dataSize = data.length
+
+            var randomNumber = Math.floor(Math.random() * (dataSize)) 
+
+            var output = data[randomNumber]
+            console.log(String(randomNumber + " "+ String(dataSize))) 
+            console.log(data)  
+            console.log(output)
+            document.getElementById("chosn").innerHTML = "Chosen Element : " + output
+        }
+
+        function reset() {
+            data = []
+            var str = ""
+
+            for (var i = 0; i < data.length; i++) {
+                str += data[i] + "<br/>"
+            }
+
+            document.getElementById("elemts").innerHTML = str
+        }
+
+        //BUTTON INPUTS
+
+        $('#boutonEnregistrer').click(function() {
+            enregistrerDansJSON();
+        });
+
+        $('#selectrandom').click(function() {
+            randSelect();
+        });
+
+        $('#reset').click(function() {
+            reset();
+        });
+    });
+
+</script>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Random Roulette</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+</head>
+
+
+<body class="content">
+
+    <h1>RANDOM ROULETTE</h1>
+    <br/>
+    <button id="selectrandom" class="btn">Select Random</button>
+    <br/>
+    <br/>
+    <form>
+        <input type="text" placeholder="Enter Keyword" name="val">
+        <button type="button" onClick="addinputvalue(val)" class="btn">Add Element</button>
+    </form>
+    <br/>
+    <br/>
+    <p id="elemts">Add elements</p>
+    <br/>
+    <br/>
+    <p id="chosn">Chosen Element :</p>
+    <br/>
+    <br/>
+    <button id="reset" class="btn">Reset</button>
+    <br/>
+    <br/>
+    <input type="file" id="myFile" accept=".json">
+    <button onclick="importFile()" class="btn">Importer</button>
+    <br/>
+    <br/>
+    <button id="boutonEnregistrer" class="btn">Enregistrer dans un fichier JSON</button>
+
+</body>
+
+</html>
